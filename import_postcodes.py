@@ -10,6 +10,7 @@ import pandas as pd
 import geopandas as gpd
 import matplotlib.pyplot as plt
 import shapely
+import psutil
 wkbfab = osmium.geom.WKBFactory()
 
 path_in = 'codepo_gb/Data/CSV'
@@ -160,8 +161,16 @@ def process_all_files():
         else:
             continue
     #p = multiprocessing.Pool(multiprocessing.cpu_count())
-    p = multiprocessing.Pool(4)
-    #p = multiprocessing.Pool(1) # use if you have 16GB of free memory or less
+    #p = multiprocessing.Pool(4)
+    cores = multiprocessing.cpu_count()
+    mem = psutil.virtual_memory().total*1e-9
+    if mem < 32:
+        pp = 1
+    elif mem < 64:
+        pp = 2
+    else:
+        pp = 4
+    p = multiprocessing.Pool(min(pp, cores))
     result = p.map(process_postcode_area, area_list)
     p.close()
     p.join()
