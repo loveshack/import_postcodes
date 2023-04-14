@@ -4,6 +4,8 @@ This is slightly modified from the
 
 Converts postcodes from [Code-Point Open](https://www.ordnancesurvey.co.uk/business-and-government/products/code-point-open.html) format to `.osm` files that can be open in jOSM.
 
+The Code-Point data are from release 2023.1, and the OSM data were downloaded on 2023-04-07.
+
 Once open in jOSM, postcode tags can be easily transferred to OSM objects, usually buildings:
 ![Adding postcodes in jOSM](docs/adding_postcodes.gif)
 
@@ -67,4 +69,4 @@ Procedure:
 2. Download a current extract of OSM UK data and pre-process it using a `download_map_data.sh` script. Note that this will download about 1GB of data from [GeoFabrik](http://download.geofabrik.de/europe/)
 3. Run an `import_postcodes.py` to process the data and produce three sets of `.osm` files. Note that this is a very slow process and it requires at least 16GB or RAM. This is mainly because it uses a slow GeoPandas library (specifically, its `sjoin` function) but rewriting the code using different tools would take more time and effort than occasionally running the script overnight.
 
-The process took a couple of days using two cores of a 3.6GHz workstation Skylake Xeon system with 32 GB of memory and a magnetic disk, mostly CPU-bound.  It thrashed badly using four cores.  (It was too much trouble to install the dependencies on a high-memory HPC node to try going faster.)
+The process took a couple of days using two cores of a 3.6GHz workstation Skylake Xeon system with 32 GiB of memory and a magnetic disk, mostly CPU-bound.  It thrashed badly using four cores, and tests show it needs ~16GiB/core.  Running on eight 3.8MHz POWER9 cores with plenty of memory took nearly seven hours.

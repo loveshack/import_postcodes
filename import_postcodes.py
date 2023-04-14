@@ -160,16 +160,10 @@ def process_all_files():
             #gc.collect()
         else:
             continue
-    #p = multiprocessing.Pool(multiprocessing.cpu_count())
-    #p = multiprocessing.Pool(4)
+    # We need ~16GB per process
     cores = multiprocessing.cpu_count()
     mem = psutil.virtual_memory().total*1e-9
-    if mem < 32:
-        pp = 1
-    elif mem < 64:
-        pp = 2
-    else:
-        pp = 4
+    pp = max(int(mem/16e9), 1)
     p = multiprocessing.Pool(min(pp, cores))
     result = p.map(process_postcode_area, area_list)
     p.close()
