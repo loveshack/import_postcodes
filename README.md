@@ -4,7 +4,7 @@ This is slightly modified from the
 
 Converts postcodes from [Code-Point Open](https://www.ordnancesurvey.co.uk/business-and-government/products/code-point-open.html) format to `.osm` files that can be open in jOSM.
 
-The Code-Point data are from release 2023.1, and the OSM data were downloaded on 2023-04-07.
+The Code-Point data are the 2023-05 version, and the OSM data were downloaded on 2023-06-04.
 
 Once open in jOSM, postcode tags can be easily transferred to OSM objects, usually buildings:
 ![Adding postcodes in jOSM](docs/adding_postcodes.gif)
